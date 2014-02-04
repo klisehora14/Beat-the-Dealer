@@ -1,0 +1,6 @@
+/* array list of all 52 cards.... shuffle.. picks random card and returns it*/
+
+public class Deck
+{
+  ArrayList<String> deck = new ArrayList<String>();
+}
