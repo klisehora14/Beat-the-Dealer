@@ -13,6 +13,7 @@ public class Deck
       int clubs = 2;
       int diamonds = 3;
       int hearts = 4;
+      
       ArrayList<String> deck = new ArrayList<String>();              //how to actually declare this?
       deck.add("1-1");
       deck.add("1-2");
@@ -78,44 +79,44 @@ public class Deck
   
   private static String getSuit(String card) //is given a selection from arraylist deck... gets the suit based on the first number in the string
   {
-    if (card.substring(0,1).equals(1)) //card of spades
+    if (card.substring(0,1).equals("1")) //card of spades
       return "Spades";
-    if (card.substring(0,1).equals(2)) //card of clubs
+    if (card.substring(0,1).equals("2")) //card of clubs
       return "Clubs";
-    if (card.substring(0,1).equals(3)) //card of diamonds
+    if (card.substring(0,1).equals("3")) //card of diamonds
       return "Diamonds";
-    if (card.substring(0,1).equals(4)) // card of hearts
+    if (card.substring(0,1).equals("4")) // card of hearts
       return "Hearts";
     else return "getSuit error";
   }
   
   private static String getValue(String card) //is given a selection from arraylist deck... gets the value of the card based on the last number
   {
-    if (card.substring(3).equals(1)) //ace
+    if (card.substring(2).equals("1")) //ace
       return "Ace";
-    if (card.substring(3).equals(2)) //2
+    if (card.substring(2).equals("2")) //2
       return "2";
-    if (card.substring(3).equals(3)) //3
+    if (card.substring(2).equals("3")) //3
       return "3";
-    if (card.substring(3).equals(4)) //4
+    if (card.substring(2).equals("4")) //4
       return "4";
-    if (card.substring(3).equals(5)) //5
+    if (card.substring(2).equals("5")) //5
       return "5";
-    if (card.substring(3).equals(6)) //6
+    if (card.substring(2).equals("6")) //6
       return "6";
-    if (card.substring(3).equals(7)) //7
+    if (card.substring(2).equals("7")) //7
       return "7";
-    if (card.substring(3).equals(8)) //8
+    if (card.substring(2).equals("8")) //8
       return "8";
-    if (card.substring(3).equals(9)) //9
+    if (card.substring(2).equals("9")) //9
       return "9";
-    if (card.substring(3).equals(10)) //10
+    if (card.substring(2).equals("10")) //10
       return "10";
-    if (card.substring(3).equals(11)) //jack
+    if (card.substring(2).equals("11")) //jack
       return "Jack";
-    if (card.substring(3).equals(12)) //queen
+    if (card.substring(2).equals("12")) //queen
       return "Queen";
-    if (card.substring(3).equals(13)) //king
+    if (card.substring(2).equals("13")) //king
       return "King";
     
     else return "getValue error";
