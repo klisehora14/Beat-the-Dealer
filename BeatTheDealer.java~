@@ -17,7 +17,7 @@ public class BeatTheDealer extends CardValue
       Scanner scanner = new Scanner(System.in);
   
       final int LIMIT = 21;
-      final int DEALER_STAND = 17; //elements that can be referenced to check size
+      final int DEALER_STAND = 17;
   
       boolean playerWon = false;
       boolean dealerWon = false;

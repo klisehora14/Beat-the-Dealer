@@ -4,34 +4,37 @@
 
 /*
  * for aces... check after each time is delt if it;s an ace to the total plus 11 or 1 see which works better and keep that value for it
+ * 
+ * make decimal show two places
  */
 package beatTheDealer;
 
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class BeatTheDealer extends CardValue
+public class BeatTheDealer
 {
   public static void main(String[] args)
   {
       Scanner scanner = new Scanner(System.in);
   
       final int LIMIT = 21;
-      final int DEALER_STAND = 17; //elements that can be referenced to check size
+      final int DEALER_STAND = 17;
+      
+     // Deck newDeck = new Deck();
   
       boolean playerWon = false;
       boolean dealerWon = false;
   
-      double bankBalance = 100; //for gambling
-      int wager;
+      double bankBalance = 100.00; //for gambling
+      int wager = 0;
   
-      int counter;
+      int counter = 0;
   
       ArrayList<String> dealer = new ArrayList<String>(); //keep track of the cards CURRENLTY in the dealer's hand. first card is not available to player
       int dealersPoints; //total points that round
       ArrayList<String> player = new ArrayList<String>(); //player's hand
       int playersPoints; //total points that round
-  
     
     if ((playerWon == false) && (dealerWon == false)) //new game
     {
@@ -52,24 +55,24 @@ public class BeatTheDealer extends CardValue
     }
     
     //dealer plays first
-    dealer.add(Deck()); //add one card; keep secret
-    dealer.add(Deck()); //add second card; show
+    dealer.add(Deck.Deck()); //add one card; keep secret
+    dealer.add(Deck.Deck()); //add second card; show
     System.out.println("The dealer plays his initial two cards. His visible card is: " + dealer.get(1)); //second card 
     
-    dealersPoints = cardValue(dealer.get(0)) + cardValue(dealer.get(1)); //format?? slot one and 2 in arraylist 
+    dealersPoints = CardValue.cardValue(dealer.get(0)) + CardValue.cardValue(dealer.get(1)); //slot one and 2 in arraylist 
     //if total array value is less than DEALER_STAND; hit
          //else stand and play 
     // class that checks the value... 
     while (dealersPoints < DEALER_STAND) //16 or less
     {
-      dealer.add(Deck());
-      counter ++; //number of cards added
+      dealer.add(Deck.Deck());
+      counter += 1; //number of cards added
       // add to dealersPoints
       while (counter > 0) //imbedding following code instead,, fixed
       {
         int i = 2;
         System.out.println("The dealer hit. His card was: "+ dealer.get(i));
-        dealersPoints += cardValue(dealer.get(i)); //add the value of new card
+        dealersPoints += CardValue.cardValue(dealer.get(i)); //add the value of new card
         i++; //next part in array
         counter =+ counter -1; //should put it back to 0
         
@@ -77,10 +80,12 @@ public class BeatTheDealer extends CardValue
     }
     
     //give player cards
-    player.add(Deck()); //add one card; keep secret
-    player.add(Deck()); //add second card; show
+    player.add(Deck.Deck()); //add one card; keep secret
+    player.add(Deck.Deck()); //add second card; show
     System.out.println("The player is dealt the first card: The " + player.get(0) +". The second card is: The " + player.get(1));
-    playersPoints = cardValue(player.get(0)) + cardValue(player.get(1)); //format?? slot one and 2 in arraylist 
+    int temp = CardValue.cardValue(player.get(0));
+    int temp2 = CardValue.cardValue(player.get(1));
+    playersPoints = temp + temp2;  //cannot add CardValue.cardvalue etc directly.
     
     
     
@@ -126,7 +131,8 @@ public class BeatTheDealer extends CardValue
     else if ((dealersPoints < LIMIT) && (playersPoints < LIMIT))
     {
       //play out player
-      System.out.println("The dealer stands. He has " + (dealersPoints - cardValue(dealer.get(0))) + " points."); //how many points dealer has minus first card that's hidden to the player
+      int temp3;
+      System.out.println("The dealer stands. He has " + (dealersPoints - CardValue.cardValue(dealer.get(0))) + " points."); //how many points dealer has minus first card that's hidden to the player
       System.out.println("Hit or stand?");
       String decision = scanner.nextLine();
       

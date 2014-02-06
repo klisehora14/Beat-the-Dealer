@@ -1,7 +1,7 @@
 /* array list of all 52 cards.... shuffle.. picks random card and returns it*/
 
 //ace = 1; if thing = 1 then use 1 or 11- whichever works best in the situation... assume 1 unless needed better
-//package beatTheDealer;
+package beatTheDealer;
 
 import java.util.ArrayList;
 public class Deck
@@ -14,10 +14,54 @@ public class Deck
       int diamonds = 3;
       int hearts = 4;
       ArrayList<String> deck = new ArrayList<String>();              //how to actually declare this?
-      deck.add("1-1","1-2","1-3","1-4","1-5","1-6","1-7","1-8","1-9","1-10","1-11","1-12",
-         "2-1","2-2","2-3","2-4","2-5","2-6","2-7","2-8","2-9","2-10","2-11","2-12",
-         "3-1","3-2","3-3","3-4","3-5","3-6","3-7","3-8","3-9","3-10","3-11","3-12",
-         "4-1","4-2","4-3","4-4","4-5","4-6","4-7","4-8","4-9","4-10","4-11","4-12");
+      deck.add("1-1");
+      deck.add("1-2");
+      deck.add("1-3");
+      deck.add("1-4");
+      deck.add("1-5");
+      deck.add("1-6");
+      deck.add("1-7");
+      deck.add("1-8");
+      deck.add("1-9");
+      deck.add("1-10");
+      deck.add("1-11");
+      deck.add("1-12");
+      deck.add("2-1");
+      deck.add("2-2");
+      deck.add("2-3");
+      deck.add("2-4");
+      deck.add("2-5");
+      deck.add("2-6");
+      deck.add("2-7");
+      deck.add("2-8");
+      deck.add("2-9");
+      deck.add("2-10");
+      deck.add("2-11");
+      deck.add("2-12");
+      deck.add("3-1");
+      deck.add("3-2");
+      deck.add("3-3");
+      deck.add("3-4");
+      deck.add("3-5");
+      deck.add("3-6");
+      deck.add("3-7");
+      deck.add("3-8");
+      deck.add("3-9");
+      deck.add("3-10");
+      deck.add("3-11");
+      deck.add("3-12");
+      deck.add("4-1");
+      deck.add("4-2");
+      deck.add("4-3");
+      deck.add("4-4");
+      deck.add("4-5");
+      deck.add("4-6");
+      deck.add("4-7");
+      deck.add("4-8");
+      deck.add("4-9");
+      deck.add("4-10");
+      deck.add("4-11");
+      deck.add("4-12");
     
     //arraylist deck... randomly pick one, getSuit; getValue (substring)... return that.... beatthedealer can just call deck twice the first time
          //and only once everytime someone takes a hit
