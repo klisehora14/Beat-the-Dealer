@@ -9,7 +9,8 @@
  * 
  * make sure 'the player' is in second person not third
  * 
- * extra parenthesis SOMEWHERE
+ *  System.out.println("The dealer plays his initial two cards. His visible card is: " + dealer.get(1) + " (first card for testing: " + dealer.get(0)); //second card 
+      fix that later
  */
 package beatTheDealer;
 
@@ -27,6 +28,10 @@ public class BeatTheDealer
     
     // Deck newDeck = new Deck();
     
+    int i = 2; //for when the dealer hits. needs to be called outside and this is useful
+    int temp3 = 0;
+    String decision = "";
+    
     boolean playerWon = false;
     boolean dealerWon = false;
     
@@ -40,9 +45,9 @@ public class BeatTheDealer
     int playerCounter = 0;
     
     ArrayList<String> dealer = new ArrayList<String>(); //keep track of the cards CURRENLTY in the dealer's hand. first card is not available to player
-    int dealersPoints; //total points that round
+    int dealersPoints = 0; //total points that round
     ArrayList<String> player = new ArrayList<String>(); //player's hand
-    int playersPoints; //total points that round
+    int playersPoints = 0; //total points that round
     
     if ((playerWon == false) && (dealerWon == false)) //new game
     {
@@ -65,7 +70,7 @@ public class BeatTheDealer
       //dealer plays first
       dealer.add(Deck.Deck()); //add one card; keep secret
       dealer.add(Deck.Deck()); //add second card; show
-      System.out.println("The dealer plays his initial two cards. His visible card is: " + dealer.get(1)); //second card 
+      System.out.println("The dealer plays his initial two cards. His visible card is: " + dealer.get(1) + " (first card for testing: " + dealer.get(0)); //second card 
       
       if ((CardValue.cardValue(dealer.get(0)) == 1) || (CardValue.cardValue(dealer.get(1)) == 1)) //if has an ace
       {
@@ -79,7 +84,7 @@ public class BeatTheDealer
       while (dealersPoints < DEALER_STAND) //16 or less
       {
         //oh, you have an ace? let's check which value you want :D
-        if ((dealerAce == true) && ((dealersPoints + 10 <= LIMIT) || (dealersPoints + 10 >= DEALER_STAND))) //if has ace and that ace being 11 is between 17 and 21
+        if ((dealerAce == true) && ((dealersPoints + 10 <= LIMIT) && (dealersPoints + 10 >= DEALER_STAND))) //if has ace and that ace being 11 is between 17 and 21
         {
           dealersPoints = dealersPoints + 10; //now that ace is worth 11
           dealerAce = true;
@@ -92,7 +97,6 @@ public class BeatTheDealer
           // add to dealersPoints
           while (counter > 0) //imbedding following code instead,, fixed
           {
-            int i = 2;
             System.out.println("The dealer hit. His card was: "+ dealer.get(i));
             dealersPoints += CardValue.cardValue(dealer.get(i)); //add the value of new card
             i++; //next part in array
@@ -115,6 +119,14 @@ public class BeatTheDealer
       
       
       
+            //FOR TESTING XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      System.out.println("Dealers's points = " + dealersPoints);
+      System.out.println("Card value... dealer.get(0) = " + CardValue.cardValue(dealer.get(0)));
+      System.out.println("Player's points = " + playersPoints);
+      System.out.println("Card value... player.get(0) = " + CardValue.cardValue(player.get(0)));
+      
+      
+      
 //dealer reached 17 or higher
       //dealer is at 21 and so is player 
       if ((dealersPoints == LIMIT) && (playersPoints == LIMIT))
@@ -132,10 +144,9 @@ public class BeatTheDealer
       else if ((dealersPoints == LIMIT) && (playersPoints < LIMIT))
       {
         //play out player
-        int temp3;
         System.out.println("The dealer stands. He has " + (dealersPoints - CardValue.cardValue(dealer.get(0))) + " visible points."); //how many points dealer has minus first card that's hidden to the player
         System.out.println("Hit or stand?");
-        String decision = scanner.nextLine();
+        decision = scanner.nextLine();
         
         if ((decision.equals("hit")) || (decision.equals("Hit")))
         {
@@ -147,7 +158,6 @@ public class BeatTheDealer
             System.out.println("You are dealt: " + player.get(playerCounter) + "."); //tell them which card
             playersPoints += CardValue.cardValue(dealer.get(playerCounter)); //add value of that card to their total points
           }
-        }
         else //stand
         {
           //oh, you have an ace? let's check which value you want :D
@@ -155,7 +165,7 @@ public class BeatTheDealer
           {
             dealersPoints = dealersPoints + 10; //now that ace is worth 11
           }
-          
+
           System.out.println("You stand. Your total is " + playersPoints + ". The dealer flips his first card. His total is " + dealersPoints + ". ");
           if (dealersPoints > playersPoints)
           {
@@ -200,10 +210,9 @@ public class BeatTheDealer
       else if ((dealersPoints < LIMIT) && (playersPoints < LIMIT)) // PLAY OUT PLAYER
       {
         //play out player
-        int temp3;
         System.out.println("The dealer stands. He has " + (dealersPoints - CardValue.cardValue(dealer.get(0))) + " visible points."); //how many points dealer has minus first card that's hidden to the player
         System.out.println("Hit or stand?");
-        String decision = scanner.nextLine();
+        decision = scanner.nextLine();
         
         if ((decision.equals("hit")) || (decision.equals("Hit")))
         {
@@ -290,7 +299,7 @@ public class BeatTheDealer
       }
       
       //if dealer won
-      else
+      if ((dealerWon == true) && (playerWon == false))
       {
         bankBalance = bankBalance - wager; //lost the bet. ouchy
         
@@ -306,25 +315,26 @@ public class BeatTheDealer
           dealer.clear();
           player.clear();
         }
-        else //no more games
-        {
-          System.out.println("You came to the table with $100 and are leaving with $" + bankBalance+". ");
-          if (bankBalance == 100)
-          {
-            System.out.print("Breaking even is better than losing.");
-          }
-          else if (bankBalance > 100)
-          {
-            System.out.print("You are walking away with an extra $" + (bankBalance - 100) + "!");
-          }
-          else //lost money
-          {
-            System.out.print("You lost $" + (100 - bankBalance) + ". Better luck next time.");
-          }
-        }
       }
+//      else //noone won... but that restarts the game where they died. hmm.
+//      {
+//        System.out.println("You came to the table with $100 and are leaving with $" + bankBalance+". ");
+//        if (bankBalance == 100)
+//        {
+//          System.out.print("Breaking even is better than losing.");
+//        }
+//        else if (bankBalance > 100)
+//        {
+//          System.out.print("You are walking away with an extra $" + (bankBalance - 100) + "!");
+//        }
+//        else //lost money
+//        {
+//          System.out.print("You lost $" + (100 - bankBalance) + ". Better luck next time.");
+//        }
+//      }
     }
   }
+}
 }
 
 

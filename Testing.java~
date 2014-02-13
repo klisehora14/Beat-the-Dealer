@@ -1,0 +1,21 @@
+//package beatTheDealer;
+//
+//public class Testing
+//{
+//  public static void main(String[] args)
+//  {
+//    ArrayList<String> tester = new ArrayList<String>();
+//    int testerPoints;
+//    
+//    public testing()
+//    {
+//      
+//      System.out.println("testerPoints = " + testerPoints);
+//      tester.add(Deck.Deck());
+//      System.out.println("Adding card: " + tester.get(0));
+//      int temp = CardValue.cardValue(tester.get(0));
+//      System.out.println("Value of card is: " + temp);
+//      
+//    }
+//  }
+//}

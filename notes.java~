@@ -1,0 +1,54 @@
+/*
+ *   errors on run through... just to keep them safe
+ * 
+ * 
+Welcome to DrJava.  Working directory is /Users/klisehora14/Desktop/Miss Elily/Classes/APCS/Java Project
+> run beatTheDealer.BeatTheDealer
+Let's play Blackjack! Face cards are worth 10. An Ace is either worth 1 or 11; your call.
+Your bank balance is $100.0. Bets are payed out 3:2. How much would you like to bet?
+ [DrJava Input Box]
+The dealer plays his initial two cards. His visible card is: Queen of Diamonds
+You're dealt your first card: The 9 of Spades. Your second card is: The Ace of Diamonds
+You and the dealer have both exceeded 21. The cards are discarded and play restarts with new cards. You keep your bet.
+The dealer wins! Bank balance: 0.0
+Play again? 1 = yes, 2 = no.
+
+--FIXED. CHANGED AN OR TO AN AND. NOW DEALER DOESN'T AUTOMATICALLY OVERDRAW IF HE HAS AN ACE
+
+Welcome to DrJava.  Working directory is /Users/klisehora14/Desktop/Miss Elily/Classes/APCS/Java Project
+> run beatTheDealer.BeatTheDealer
+Let's play Blackjack! Face cards are worth 10. An Ace is either worth 1 or 11; your call.
+Your bank balance is $100.0. Bets are payed out 3:2. How much would you like to bet?
+ [DrJava Input Box]
+The dealer plays his initial two cards. His visible card is: 10 of Clubs
+You're dealt your first card: The 4 of Clubs. Your second card is: The 5 of Spades
+You and the dealer have both exceeded 21. The cards are discarded and play restarts with new cards. You keep your bet.
+The dealer wins! Bank balance: 81.0
+Play again? 1 = yes, 2 = no.
+ [DrJava Input Box]
+
+-- error has to deal with the both over 21 'else if' statement. .... not really sure what's wrong at this point?
+
+Welcome to DrJava.  Working directory is /Users/klisehora14/Desktop/Miss Elily/Classes/APCS/Java Project
+> run beatTheDealer.BeatTheDealer
+Let's play Blackjack! Face cards are worth 10. An Ace is either worth 1 or 11; your call.
+Your bank balance is $100.0. Bets are payed out 3:2. How much would you like to bet?
+ [DrJava Input Box]
+The dealer plays his initial two cards. His visible card is: 4 of Clubs
+You're dealt your first card: The 7 of Clubs. Your second card is: The 7 of Diamonds
+You and the dealer have both exceeded 21. The cards are discarded and play restarts with new cards. You keep your bet.
+The dealer wins! Bank balance: 90.0
+Play again? 1 = yes, 2 = no.
+ [DrJava Input Box]
+> 2
+
+-- also doesn't replay... so there's that.
+
+  
+  
+
+  */
+
+public class notes
+{
+}

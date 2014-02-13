@@ -8,38 +8,49 @@ public class CardValue
 {
   public static int cardValue(String str)
   {
-    int i = str.length(); //simplify
-    
+
     //a,t,th,f,fi,s,se,e,n,te,j,q,k
+
     
-    if (str.substring(0,1) == "a")// is an ace.. check in beat the dealer class for an ace and set a boolean flag or something
+    if (str.substring(0,1).equals("A"))// is an ace.. check in beat the dealer class for an ace and set a boolean flag or something
       return 1;
-    if (str.substring(0,1) == "t")
+    if (str.substring(0,1).equals("2"))
       return 2;
-    if (str.substring(0,2) == "th")
+    if (str.substring(0,1).equals("3"))
       return 3;
-    if (str.substring(0,1) == "f")
+    if (str.substring(0,1).equals("4"))
       return 4;
-    if (str.substring(0,2) == "fi")
+    if (str.substring(0,1).equals("5"))
       return 5;
-    if (str.substring(0,1) == "s")
+    if (str.substring(0,1).equals("6"))
       return 6;
-    if (str.substring(0,2) == "se")
+    if (str.substring(0,1).equals("7"))
       return 7;
-    if (str.substring(0,1) == "e")
+    if (str.substring(0,1).equals("8"))
       return 8;
-    if (str.substring(0,1) == "n")
+    if (str.substring(0,1).equals("9"))
       return 9;
-    if (str.substring(0,2) == "te")
+    if (str.substring(0,2).equals("10"))
       return 10;
-    if (str.substring(0,1) == "j")
+    if (str.substring(0,1).equals("J"))
       return 10;
-    if (str.substring(0,1) == "q")
+    if (str.substring(0,1).equals("Q"))
       return 10;
-    if (str.substring(0,1) == "k")
+    if (str.substring(0,1).equals("K"))
       return 10;
-    
-    else return 5000;
       
+      
+
+    else return 5000;
+    
+    // jsut returning 5000... something is wrong with the getting of the values
+      // maybe try to see what it's getting as the string... return str
+// getting the right string. it's the other returning stuff figuring out what's in the string that is the problem.
+    //not == and not .equals() ??
+    
+    //IT'S NOT COMING IN AS WORDS BUT AS NUMBERS OMFG
+    
+    // doesn't work for word ones...
+
   }
 }
