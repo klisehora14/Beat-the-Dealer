@@ -264,6 +264,67 @@ Card value... player.get(0) = 1
 -- might have fixed that problem?
 -- new problem. when dealer is over 21 and player is not
 ... big problem. considering rewriting the entire class so i know that  there are the correct brackets and stuff eerywhere
+
+-- yea so fixed the bracket problem.. I THINK hopefully that saves some trouble
+
+Welcome to DrJava.  Working directory is /Users/klisehora14/Desktop/Miss Elily/Classes/APCS/Java Project
+> run beatTheDealer.BeatTheDealer
+Let's play Blackjack! Face cards are worth 10. An Ace is either worth 1 or 11; your call.
+Your bank balance is $100.0. Bets are payed out 3:2. How much would you like to bet?
+ [DrJava Input Box]
+The dealer plays his initial two cards. His visible card is: 6 of Hearts (first card for testing: 5 of Spades
+The dealer hit. His card was: 2 of Clubs
+The dealer hit. His card was: 3 of Clubs
+The dealer hit. His card was: Queen of Diamonds
+You're dealt your first card: The 6 of Diamonds. Your second card is: The 7 of Spades
+Dealers's points = 26
+Card value... dealer.get(0) = 5
+Player's points = 13
+Card value... player.get(0) = 6
+Dealer busts!
+> 
+
+looks like we're getting somewhere. why doesn't it go into the whole whenPlayerWon=true stuff
+
+fixed it! it's else if and if stuff. gotta be if if 
+
+Welcome to DrJava.  Working directory is /Users/klisehora14/Desktop/Miss Elily/Classes/APCS/Java Project
+> run beatTheDealer.BeatTheDealer
+Let's play Blackjack! Face cards are worth 10. An Ace is either worth 1 or 11; your call.
+Your bank balance is $100.0. Bets are payed out 3:2. How much would you like to bet?
+ [DrJava Input Box]
+The dealer plays his initial two cards. His visible card is: 6 of Diamonds (first card for testing: 2 of Hearts
+The dealer hit. His card was: 9 of Spades
+You're dealt your first card: The Jack of Diamonds. Your second card is: The 6 of Spades
+Dealers's points = 17
+Card value... dealer.get(0) = 2
+Player's points = 16
+Card value... player.get(0) = 10
+The dealer stands. He has 15 visible points.
+Hit or stand?
+You stand. Your total is 16. The dealer flips his first card. His total is 17. 
+Player busts!The dealer wins! Bank balance: 95.0
+Play again? 1 = yes, 2 = no.
+ [DrJava Input Box]
+
+-- still hit/stand issues... now it's when player and dealer and under 21
+-- only if player overdraws does the game end faa;lsdkfjasdf
+
+-- the hit/stand is the biggest issue right now... why won't it ask for an answer?
+-- changed it to toLowerCase and created new string values to just check it against... changed general format; asked to check for stand instead of just saying else 
+
+--The dealer stands. He has 10 visible points.
+Hit or stand?
+> hit
+Static Error: Undefined name 'hit'
+
+-- still error with that. took out strings that i was checking it against and now just .equals("hit/stand") stuff. still undefined error...
+
+.....
+
+MAJOR CHANGE:
+created playOutPlayer() within beatTheDealer.BeatTheDealer ... hopefully will make it easier to read and will simplify things. seems to work because i'm still
+getting the same stupid error :P haha. reduced that code by 66% :D
   */
 
 public class notes
