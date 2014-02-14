@@ -325,6 +325,39 @@ Static Error: Undefined name 'hit'
 MAJOR CHANGE:
 created playOutPlayer() within beatTheDealer.BeatTheDealer ... hopefully will make it easier to read and will simplify things. seems to work because i'm still
 getting the same stupid error :P haha. reduced that code by 66% :D
+
+- SYNCHEDDDD
+
+MAJOR CHANGES:
+-------------------------reduce amount of code by quite a bit. simplify the read. more organized. such better. much love. 
+- added dealCards()
+- added betting()
+- added reset()
+     - which also REFILLS THE DECK with the lost cards, which was an issue I had from the beginnning but I FIGURED IT OUT BOOYAAAHHH
+           - through beatTheDealer.Deck
+                 - added refillTheDeck(), cardSuit(), and cardValue() to Deck
+- added noMoreGames()
+
+Welcome to DrJava.  Working directory is /Users/klisehora14/Desktop/Miss Elily/Classes/APCS/Java Project
+> run beatTheDealer.BeatTheDealer
+Let's play Blackjack! Face cards are worth 10. An Ace is either worth 1 or 11; your call.
+Your bank balance is $100.0. Bets are payed out 3:2. How much would you like to bet?
+ [DrJava Input Box]
+The dealer plays his initial two cards. His visible card is: 7 of Diamonds (first card for testing: 5 of Diamonds
+The dealer hit. His card was: 3 of Clubs
+The dealer hit. His card was: 2 of Clubs
+You're dealt your first card: The Ace of Spades. Your second card is: The 7 of Hearts
+Dealers's points = 17
+Card value... dealer.get(0) = 5
+Player's points = 8
+Card value... player.get(0) = 1
+The dealer stands. He has 12 visible points.
+Hit or stand?
+ [DrJava Input Box]
+You are dealt: 7 of Hearts.
+> 
+
+ fixeddd! created new instance of scanner. thanks wyatt.
   */
 
 public class notes
