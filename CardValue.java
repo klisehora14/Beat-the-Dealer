@@ -1,3 +1,4 @@
+//Kapri Lisehora
 // takes in a string... one value from the dealer or player's array
 //at a time. checks the (first letter, maybe? if that's all that
 //decides if ace, eight, nine, king, etc and last letter)
