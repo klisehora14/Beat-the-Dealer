@@ -355,9 +355,138 @@ The dealer stands. He has 12 visible points.
 Hit or stand?
  [DrJava Input Box]
 You are dealt: 7 of Hearts.
+
+ -- keep calling... add a check... until the booleans are true?
+ fixeddd! created new instance of scanner. thanks wyatt.
+ 
+ Welcome to DrJava.  Working directory is /Users/klisehora14/Desktop/Miss Elily/Classes/APCS/Java Project
+> run beatTheDealer.BeatTheDealer
+Let's play Blackjack! Face cards are worth 10. An Ace is either worth 1 or 11; your call.
+Your bank balance is $100.0. Bets are payed out 3:2. How much would you like to bet?
+ [DrJava Input Box]
+The dealer plays his initial two cards. His visible card is: Queen of Clubs (first card for testing: Ace of Diamonds
+You're dealt your first card: The Ace of Spades. Your second card is: The Queen of Hearts
+Dealers's points = 21
+Card value... dealer.get(0) = 1
+Player's points = 11
+Card value... player.get(0) = 1
+The dealer stands. He has 20 visible points.
+Hit or stand?
+ [DrJava Input Box]
+You are dealt: Queen of Hearts.
+The dealer stands. He has 20 visible points.
+Hit or stand?
+ [DrJava Input Box]
+You stand. Your total is 21. The dealer flips his first card. His total is 21. 
+The player and the dealer tie. The cards are discarded and play restarts with new cards. The player keeps the bet.
+Str is: Ace of DiamondsThe card being added to the deck it: 3-1
+Str is: Queen of ClubsThe card being added to the deck it: 2-12
+java.lang.IndexOutOfBoundsException: Index: 2, Size: 2
+ at java.util.ArrayList.RangeCheck(ArrayList.java:547)
+ at java.util.ArrayList.get(ArrayList.java:322)
+ at beatTheDealer.BeatTheDealer.reset(BeatTheDealer.java:296)
+ at beatTheDealer.BeatTheDealer.playOutPlayer(BeatTheDealer.java:205)
+ at beatTheDealer.BeatTheDealer.main(BeatTheDealer.java:83)
+ at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+ at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+ at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+ at java.lang.reflect.Method.invoke(Method.java:597)
+ at edu.rice.cs.drjava.model.compiler.JavacCompiler.runCommand(JavacCompiler.java:272)
 > 
 
- fixeddd! created new instance of scanner. thanks wyatt.
+
+--- WOOOO fixed that. NEW PROBLEM:
+-- what to do when tied
+
+Welcome to DrJava.  Working directory is /Users/klisehora14/Desktop/Miss Elily/Classes/APCS/Java Project
+> run beatTheDealer.BeatTheDealer
+Let's play Blackjack! Face cards are worth 10. An Ace is either worth 1 or 11; your call.
+Your bank balance is $100.0. Bets are payed out 3:2. How much would you like to bet?
+ [DrJava Input Box]
+The dealer plays his initial two cards. His visible card is: Ace of Spades (first card for testing: 5 of Diamonds
+The dealer hit. His card was: 4 of Hearts
+You're dealt your first card: The 7 of Spades. Your second card is: The 10 of Spades
+Dealers's points = 20
+Card value... dealer.get(0) = 5
+Player's points = 17
+Card value... player.get(0) = 7
+The dealer stands. He has 15 visible points.
+Hit or stand?
+ [DrJava Input Box]
+You are dealt: 10 of Spades.
+The dealer stands. He has 15 visible points.
+Hit or stand?
+ [DrJava Input Box]
+You stand. Your total is 18. The dealer flips his first card. His total is 20. 
+Player busts!The dealer stands. He has 15 visible points.
+Hit or stand?
+ [DrJava Input Box]
+
+-- created playPlayer()
+
+-- LOOK AT ALL THOSE BUGS DAYUM SEXAY BUGS YEA ugh lol
+
+Welcome to DrJava.  Working directory is /Users/klisehora14/Desktop/Miss Elily/Classes/APCS/Java Project
+> run beatTheDealer.BeatTheDealer
+Let's play Blackjack! Face cards are worth 10. An Ace is either worth 1 or 11; your call.
+Your bank balance is $100.0. Bets are payed out 3:2. How much would you like to bet?
+ [DrJava Input Box]
+The dealer plays his initial two cards. His visible card is: 6 of Clubs (first card for testing: 2 of Clubs
+The dealer hit. His card was: 3 of Hearts
+The dealer hit. His card was: 9 of Hearts
+You're dealt your first card: The Queen of Spades. Your second card is: The 6 of Diamonds
+Dealers's points = 20
+Card value... dealer.get(0) = 2
+Player's points = 16
+Card value... player.get(0) = 10
+The dealer has 18 visible points.
+Hit or stand?
+ [DrJava Input Box]
+You are dealt: 6 of Diamonds.
+The dealer has 18 visible points.
+Hit or stand?
+ [DrJava Input Box]
+You stand. Your total is 22. The dealer flips his first card. His total is 20. 
+The dealer has 18 visible points.
+Hit or stand?
+ [DrJava Input Box]
+
+
+You stand. Your total is 13. The dealer flips his first card. His total is 24. 
+The dealer has 14 visible points.
+Hit or stand?
+ [DrJava Input Box]
+
+
+- aqui esta mi problemo...
+
+
+You're dealt your first card: The Ace of Spades. Your second card is: The 2 of Diamonds
+Dealers's points = 24
+Card value... dealer.get(0) = 7
+Player's points = 3
+Card value... player.get(0) = 1
+The dealer has 17 visible points.
+Hit or stand?
+ [DrJava Input Box]
+You stand. Your total is 3. The dealer flips his first card. His total is 34. 
+The dealer has 27 visible points.
+Hit or stand?
+
+Hit or stand?
+ [DrJava Input Box]
+There is an ace.
+There is an ace.
+java.lang.IndexOutOfBoundsException: Index: 2, Size: 2
+
+-- BUGS:
+ - aces for player
+    - think fixed
+       - or not
+ - tells you how many points hte dealer has
+ - not changing the boolean/acting on the boolean.
+ - so much extra wording
+ - error when player stands
   */
 
 public class notes

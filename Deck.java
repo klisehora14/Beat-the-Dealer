@@ -126,6 +126,7 @@ public class Deck
   public static void refillTheDeck(String str) //takes input from reset() in beatTheDealer.BeatTheDealer, turns that into a card, and PUTS IT BACK into the array list which it was removed from
   {
     String newCard = cardSuit(str) + "-" + cardValue(str); //returns the suit, 1,2,3, or 4, the dash, and the value, back into the deck. so it's full again :D
+    System.out.println("Str is: " + str + "The card being added to the deck it: " + newCard); //bug check to see if adding the correct card
     deck.add(newCard);
   }
   

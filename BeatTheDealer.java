@@ -52,7 +52,7 @@ public class BeatTheDealer
   public static void main(String[] args)
   {
     
-    if ((playerWon == false) && (dealerWon == false)) //new game
+    while ((playerWon == false) && (dealerWon == false)) //new game
     {
       
       
@@ -64,56 +64,37 @@ public class BeatTheDealer
       //deal out cards to both players; have dealer hit until his rules are met
       dealCards();
       
-      
-//dealer reached 17 or higher
-      //dealer is at 21 and so is player 
-      if ((dealersPoints == LIMIT) && (playersPoints == LIMIT))
+      while ((playerWon == false) || (dealerWon == false))
       {
-        //tie.
-        //cards discarded. arrays wiped clean. game restarts.
-        System.out.println("You have reached 21. The dealer flips his card. He is also at 21. The cards are discarded and play restarts with new cards. You keep your bet.");
-        reset(); //clears hands and dealer/playersPoints
+        if (playersPoints == 21) playerWon = true;
+        if (dealersPoints == 21) dealerWon = true;
+        
+        playPlayer();
+        
+        if ((playersPoints >= LIMIT) || (dealersPoints >= LIMIT))
+        {
+          
+          if ((dealersPoints > playersPoints) && (dealersPoints <= LIMIT)) //dealer has more points than player and is at most 21
+          {
+            System.out.print("Player busts!");
+            dealerWon = true;
+          }
+          else if ((dealersPoints < playersPoints) && (playersPoints <= LIMIT)) //player has more points than dealer and is at most 21
+          {
+            System.out.print("The player exceeds the dealer by " + (playersPoints - dealersPoints) +".");
+            playerWon = true;
+          }
+          else if ((dealersPoints == playersPoints) && (playersPoints <= LIMIT) && (dealersPoints <= LIMIT)) //if they're equal and under 21
+          {
+            System.out.println("The player and the dealer tie. The cards are discarded and play restarts with new cards. The player keeps the bet.");
+            reset();
+          }
+        }
       }
-      
-      //dealer is at 21 and player is not
-      else if ((dealersPoints == LIMIT) && (playersPoints < LIMIT))
-      {
-        playOutPlayer();
-      }
-      
-      
-      //dealer is above 21 and so is player
-      else if ((dealersPoints > LIMIT) && (playersPoints > LIMIT))
-      {
-        //draw, play again, bets... etc... both lost?
-        System.out.println("The dealer flips his card. He has " + dealersPoints + " points. You and the dealer have both exceeded 21. The cards are discarded and play restarts with new cards. You keep your bet.");
-        reset();
-      }
-      //dealer is above 21 and player is not
-      else if ((dealersPoints > LIMIT) && (playersPoints < LIMIT))
-      {
-        playOutPlayer();
-      }
-      
-      //dealer is under 21 and so is player
-      else if ((dealersPoints < LIMIT) && (playersPoints < LIMIT)) // PLAY OUT PLAYER
-      {
-        playOutPlayer();
-      }
-      //dealer is under 21 and player is not
-      else if ((dealersPoints < LIMIT) && (playersPoints > LIMIT))
-      {
-        System.out.println("Player busts!");
-        dealerWon = true;
-      }  
-      
-      else System.out.println("Comparison error."); //if it cannot compare either score
     }
     
-    
-    
 //if the player won
-    if ((playerWon == true) && (dealerWon == false))
+    while ((playerWon == true) && (dealerWon == false))
     {
       bankBalance =+ (wager*1.5); //house rules = 3:2
       System.out.println("The player wins! Bank balance: " + bankBalance);
@@ -132,7 +113,7 @@ public class BeatTheDealer
     }
     
 //if dealer won
-    if ((dealerWon == true) && (playerWon == false))
+    while ((dealerWon == true) && (playerWon == false))
     {
       bankBalance = bankBalance - wager; //lost the bet. ouchy
       
@@ -151,12 +132,23 @@ public class BeatTheDealer
         noMoreGames();
       }
     }
+    
+    while ((dealerWon == true) && (playerWon == true)) //tie
+    {
+      //tie.
+      //cards discarded. arrays wiped clean. game restarts.
+      System.out.println("You have reached 21. The dealer flips his card. He is also at 21. The cards are discarded and play restarts with new cards. You keep your bet.");
+      reset(); //clears hands and dealer/playersPoints
+    }
   }
+  
+  
   
   private static void playOutPlayer()
   {
     //play out player
-    System.out.println("The dealer stands. He has " + (dealersPoints - CardValue.cardValue(dealer.get(0))) + " visible points."); //how many points dealer has minus first card that's hidden to the player
+    System.out.println("The dealer has " + (dealersPoints - CardValue.cardValue(dealer.get(0))) + " visible points."); //how many points dealer has minus first card that's hidden to the player
+    
     System.out.println("Hit or stand?");
     decision = sc.nextLine();
     
@@ -174,27 +166,19 @@ public class BeatTheDealer
     if (decision.toLowerCase().equals("stand")) //stand
     {
       //oh, you have an ace? let's check which value you want :D
+      for (int i = 0; i <= player.size(); i ++) // go through each card
+      {
+        if (CardValue.cardValue(player.get(i)) == 1) playerAce = true; //has ace
+        System.out.println("There is an ace."); //bug checker
+      }
+      
       if ((playerAce == true) && (playersPoints + 10 <= LIMIT)) //if has ace and that ace being 11 is less than or equal to 21
       {
         dealersPoints = dealersPoints + 10; //now that ace is worth 11
+        System.out.println("Added 10 because of ace being good."); //bug checker
       }
       
       System.out.println("You stand. Your total is " + playersPoints + ". The dealer flips his first card. His total is " + dealersPoints + ". ");
-      if (dealersPoints > playersPoints)
-      {
-        System.out.print("Player busts!");
-        dealerWon = true;
-      }
-      else if (dealersPoints < playersPoints)
-      {
-        System.out.print("The player exceeds the dealer by " + (playersPoints - dealersPoints) +".");
-        playerWon = true;
-      }
-      else //if they're equal
-      {
-        System.out.println("The player and the dealer tie. The cards are discarded and play restarts with new cards. The player keeps the bet.");
-        reset();
-      }
     }
   }
   
@@ -203,7 +187,7 @@ public class BeatTheDealer
     //dealer plays first
     dealer.add(Deck.Deck()); //add one card; keep secret
     dealer.add(Deck.Deck()); //add second card; show
-    System.out.println("The dealer plays his initial two cards. His visible card is: " + dealer.get(1) + " (first card for testing: " + dealer.get(0)); //second card 
+    System.out.println("The dealer plays his initial two cards. His visible card is: " + dealer.get(1)); //second card 
     
     if ((CardValue.cardValue(dealer.get(0)) == 1) || (CardValue.cardValue(dealer.get(1)) == 1)) //if has an ace
     {
@@ -247,16 +231,10 @@ public class BeatTheDealer
     int temp2 = CardValue.cardValue(player.get(1));
     playersPoints = temp + temp2;  //cannot add CardValue.cardvalue etc directly.
     
-    if (CardValue.cardValue(player.get(0)) == 1) playerAce = true; //has ace
-    if (CardValue.cardValue(player.get(1)) == 1) playerAce = true;
-    
-    
     
     //FOR TESTING XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     System.out.println("Dealers's points = " + dealersPoints);
-    System.out.println("Card value... dealer.get(0) = " + CardValue.cardValue(dealer.get(0)));
     System.out.println("Player's points = " + playersPoints);
-    System.out.println("Card value... player.get(0) = " + CardValue.cardValue(player.get(0)));
   }
   
   private static void betting()
@@ -294,7 +272,12 @@ public class BeatTheDealer
     
     dealer.clear(); //clear all of the cards from the dealer and player's hands
     player.clear();
+    
+    playerWon = false;
+    dealerWon = false;
   }
+  
+  
   
   private static void noMoreGames() //player doesn't want to play anymore
   {
@@ -309,8 +292,65 @@ public class BeatTheDealer
     }
     else //lost money
     {
-      System.out.print("You lost $" + (100 - bankBalance) + ". Better luck next time.");
+      System.out.print("You lost $" + (100 - Math.abs(bankBalance)) + ". Better luck next time."); //absolute value
     }
+  }
+  
+  
+  
+  private static void playPlayer() //goes through possible transactions the player would have with the cards/dealer... allows the player to play the game
+  {
+    //dealer reached 17 or higher
+    //dealer is at 21 and so is player 
+    if ((dealersPoints == LIMIT) && (playersPoints == LIMIT))
+    {
+      //tie.
+      //cards discarded. arrays wiped clean. game restarts.
+      System.out.println("You have reached 21. The dealer flips his card. He is also at 21. The cards are discarded and play restarts with new cards. You keep your bet.");
+      reset(); //clears hands and dealer/playersPoints
+    }
+    
+    //dealer is at 21 and player is not
+    else if ((dealersPoints == LIMIT) && (playersPoints < LIMIT))
+    {
+      while ((playerWon == false) || (dealerWon == false))
+      {
+        playOutPlayer();
+      }
+    }
+    
+    //dealer is above 21 and so is player
+    else if ((dealersPoints > LIMIT) && (playersPoints > LIMIT))
+    {
+      //draw, play again, bets... etc... both lost?
+      System.out.println("The dealer flips his card. He has " + dealersPoints + " points. You and the dealer have both exceeded 21. The cards are discarded and play restarts with new cards. You keep your bet.");
+      reset();
+    }
+    //dealer is above 21 and player is not
+    else if ((dealersPoints > LIMIT) && (playersPoints < LIMIT))
+    {
+      while ((playerWon == false) || (dealerWon == false))
+      {
+        playOutPlayer();
+      }
+    }
+    
+    //dealer is under 21 and so is player
+    else if ((dealersPoints < LIMIT) && (playersPoints < LIMIT)) // PLAY OUT PLAYER
+    {
+      while ((playerWon == false) || (dealerWon == false))
+      {
+        playOutPlayer();
+      }
+    }
+    //dealer is under 21 and player is not
+    else if ((dealersPoints < LIMIT) && (playersPoints > LIMIT))
+    {
+      System.out.println("Player busts!");
+      dealerWon = true;
+    }  
+    
+    else System.out.println("Comparison error."); //if it cannot compare either score
   }
 }
 
