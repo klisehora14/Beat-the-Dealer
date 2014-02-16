@@ -25,7 +25,6 @@ public class BeatTheDealer
   static final int LIMIT = 21;
   static final int DEALER_STAND = 17;
   
-  // Deck newDeck = new Deck();
   
   static int i = 2; //for when the dealer hits. needs to be called outside and this is useful
   static int temp3 = 0;
@@ -49,7 +48,7 @@ public class BeatTheDealer
   static ArrayList<String> player = new ArrayList<String>(); //player's hand
   static int playersPoints = 0; //total points that round
   
-  public static void main(String[] args)
+  public static void beatTheDealer()  //(String[] args)
   {
     
     while ((playerWon == false) && (dealerWon == false)) //new game
@@ -61,7 +60,7 @@ public class BeatTheDealer
       //ask the player what his/her bet is
       betting();
       
-      //deal out cards to both players; have dealer hit until his rules are met
+      //deal out cards to dealer and player
       dealCards();
       
       while ((playerWon == false) || (dealerWon == false))
@@ -84,12 +83,18 @@ public class BeatTheDealer
             System.out.print("The player exceeds the dealer by " + (playersPoints - dealersPoints) +".");
             playerWon = true;
           }
+        }
           else if ((dealersPoints == playersPoints) && (playersPoints <= LIMIT) && (dealersPoints <= LIMIT)) //if they're equal and under 21
           {
             System.out.println("The player and the dealer tie. The cards are discarded and play restarts with new cards. The player keeps the bet.");
             reset();
           }
-        }
+          
+          else //no one has messed upppp yet
+          {
+            playPlayer();
+          }
+        
       }
     }
     
@@ -147,38 +152,49 @@ public class BeatTheDealer
   private static void playOutPlayer()
   {
     //play out player
-    System.out.println("The dealer has " + (dealersPoints - CardValue.cardValue(dealer.get(0))) + " visible points."); //how many points dealer has minus first card that's hidden to the player
-    
-    System.out.println("Hit or stand?");
-    decision = sc.nextLine();
-    
-    if (decision.toLowerCase().equals("hit"))
+    if (playersPoints < 21)
     {
-      //hit
-      if (playersPoints <= LIMIT) //21 or less ... if not should go to the other if statement where player loses
+      System.out.println("The dealer has " + (dealersPoints - CardValue.cardValue(dealer.get(0))) + " visible points."); //how many points dealer has minus first card that's hidden to the player
+      
+      System.out.println("Hit or stand?");
+      decision = sc.nextLine();
+      
+      if (decision.toLowerCase().equals("hit"))
       {
-        player.add(Deck.Deck()); //add another card
-        playerCounter += playerCounter + 1; //number of cards added
-        System.out.println("You are dealt: " + player.get(playerCounter) + "."); //tell them which card
-        playersPoints += CardValue.cardValue(dealer.get(playerCounter)); //add value of that card to their total points
+        //hit
+        if (playersPoints <= LIMIT) //21 or less ... if not should go to the other if statement where player loses
+        {
+          player.add(Deck.Deck()); //add another card
+          playerCounter += playerCounter + 1; //number of cards added
+          System.out.println("You are dealt: " + player.get(playerCounter) + "."); //tell them which card
+          playersPoints += CardValue.cardValue(dealer.get(playerCounter)); //add value of that card to their total points
+        }
+      }
+      if (decision.toLowerCase().equals("stand")) //stand
+      {
+        //oh, you have an ace? let's check which value you want :D
+        for (int i = 0; i <= player.size(); i ++) // go through each card
+        {
+          if (CardValue.cardValue(player.get(i)) == 1) playerAce = true; //has ace
+          System.out.println("There is an ace."); //bug checker
+        }
+        
+        if ((playerAce == true) && (playersPoints + 10 <= LIMIT)) //if has ace and that ace being 11 is less than or equal to 21
+        {
+          playersPoints = playersPoints + 10; //now that ace is worth 11
+          System.out.println("Added 10 because of ace being good."); //bug checker
+        }
+        
+        System.out.println("You stand. Your total is " + playersPoints + ". The dealer flips his first card. His total is " + dealersPoints + ". ");
       }
     }
-    if (decision.toLowerCase().equals("stand")) //stand
+    else if (playersPoints == 21) 
     {
-      //oh, you have an ace? let's check which value you want :D
-      for (int i = 0; i <= player.size(); i ++) // go through each card
-      {
-        if (CardValue.cardValue(player.get(i)) == 1) playerAce = true; //has ace
-        System.out.println("There is an ace."); //bug checker
-      }
-      
-      if ((playerAce == true) && (playersPoints + 10 <= LIMIT)) //if has ace and that ace being 11 is less than or equal to 21
-      {
-        dealersPoints = dealersPoints + 10; //now that ace is worth 11
-        System.out.println("Added 10 because of ace being good."); //bug checker
-      }
-      
-      System.out.println("You stand. Your total is " + playersPoints + ". The dealer flips his first card. His total is " + dealersPoints + ". ");
+      playerWon = true;
+    }
+    else
+    {
+      playerWon = false;
     }
   }
   

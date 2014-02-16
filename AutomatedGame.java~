@@ -1,0 +1,25 @@
+package beatTheDealer;
+import java.util.ArrayList;
+// driver that runs AutomatedPlayer against the Dealer x times... maybe use the methods that are in BeatTheDealer?
+
+public class AutomatedGame
+{
+  static ArrayList<String> dealer = new ArrayList<String>(); //keep track of the cards CURRENLTY in the dealer's hand. first card is not available to player
+  static ArrayList<String> autoPlayer = new ArrayList<String>();
+  
+  static int gameNumber = 1; //what game of however many they're on 
+  
+  public static void it automatedGame(int numberOfGames)
+  {
+    while (gameNumber <= numberOfGames) //still going through as many as the better wanted
+    {
+      //play dealer cards
+      
+      
+      
+    }
+    
+    //after gone through all of the games...
+    // tell player who won, what are the betting stuff, etc
+  }
+}

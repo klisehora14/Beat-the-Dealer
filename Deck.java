@@ -12,10 +12,10 @@ public class Deck
   public static String Deck() //returns one randomly selected card... value
   {
     int cardsRemaining = 52; //minus 1 everytime the class is called to represent one less card in the deck
-    int spades = 1;
-    int clubs = 2;
-    int diamonds = 3;
-    int hearts = 4;
+//    int spades = 1;
+//    int clubs = 2;
+//    int diamonds = 3;
+//    int hearts = 4;
     
     //add the cards to the deck
     deck.add("1-1");

@@ -1,0 +1,40 @@
+package beatTheDealer;
+// plays like a smart player BUT DOESNT COUNT CARDS... maybe implement that later or have another AI that DOES count cards.
+// play round of like 10 games? when the person is betting on the player vs computer
+
+/*
+ * give the player their two cards
+ * check to see if ace.. then hardHand or softHand
+ * return 'hit' or 'stand'
+ */
+public class AutomatedPlayer
+{
+  boolean hasAce = false; //whether the player has at least one ace or not
+  
+  public static int automatedPlayer(arraylists.....)// take two arraylists... the players cards and the dealers cards.
+  {
+    if ((CardValue.cardValue(firstCard) == 1) || (CardValue.cardValue(secondCard) == 1)) //if ace
+    {
+      hasAce = true;
+    }
+    
+    if (hasAce == true)
+    {
+    }
+    
+  }
+    
+    public static int hardHand() //no aces
+    {
+      //from 3-11 hit
+      // if you have 12-16, hit unless dealer has 2-6. if 7 or better, hit.
+      // always stand on 17-21 regardless
+    }
+    
+    public static int softHand() //ace
+    {
+      //stand if you have 8 or above
+      // otherwise hit because you can always turn the ace into a 1
+    }
+  
+}

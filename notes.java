@@ -483,10 +483,13 @@ java.lang.IndexOutOfBoundsException: Index: 2, Size: 2
  - aces for player
     - think fixed
        - or not
+          - was dealersPoints instead of playersPoints :O
  - tells you how many points hte dealer has
  - not changing the boolean/acting on the boolean.
  - so much extra wording
  - error when player stands
+ - i think there's an error when the player exceeds 21 points
+   - fixed some of that... doesn't prompt to play more if player goes over 21.. not that it should but it should redirect to the boolean contingencies 
   */
 
 public class notes
