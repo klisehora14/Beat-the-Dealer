@@ -54,7 +54,7 @@ public class AutomatedPlayer
       }
       
       if ((playersPoints >= 3) && (playersPoints <= 11)) //3-11
-      {
+      {System.out.println("returning hit 1");
         return "hit";
       }
       
@@ -62,12 +62,15 @@ public class AutomatedPlayer
       {
         if ((dealersPoints >= 2) && (dealersPoints <= 6))
         {
+          System.out.println("returning stand; dealer>=2; <=6");
           return "stand";
         }
-        else return "hit"; //greater than 7
+        System.out.println("returning hit; greater than 7");
+        return "hit"; //greater than 7
       }
       
-      else return "stand"; //greater or equal to 17
+      System.out.println("returning stand");
+      return "stand"; //greater or equal to 17
     }
     
     private static String softHand(ArrayList<String> playersCards) //ace
@@ -83,7 +86,6 @@ public class AutomatedPlayer
       
       if ((playersPoints >= 8) && (playersPoints <= 10))
       {
-       //ace worth 11 MUST CHECK FOR THIS IN THE DRIVER XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         return "stand";
       }
       

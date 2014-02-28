@@ -490,6 +490,14 @@ java.lang.IndexOutOfBoundsException: Index: 2, Size: 2
  - error when player stands
  - i think there's an error when the player exceeds 21 points
    - fixed some of that... doesn't prompt to play more if player goes over 21.. not that it should but it should redirect to the boolean contingencies 
+   
+   - work with dealCards and dealerWon boolean in it for beatthedealer
+     - thinking might help with the error when the player goes over 21
+     
+     - issue with the aces for 2
+     
+     // leaving auto alone for now. i might need to just rewrite that it's too confusing to figure out where the errors are.
+     
   */
 
 public class notes

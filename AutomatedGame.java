@@ -11,11 +11,11 @@ public class AutomatedGame
   static boolean dealerAce = false;
   static boolean playerAce = false;
   static int dealersPoints = 0;
-  static int playersPoints = 0;
+  static double playersPoints = 0;
   static int counter = 0;
   static int i = 0;
   static String playerMove = "";
-  static int playerCounter = 2; //starts off with two cards in the player's hand
+  static int playerCounter = 0; //starts off with two cards in the player's hand
   static int dealersGame = 0; //how many games the dealer won
   static int playersGame = 0; //how many games the automated player won
   
@@ -36,13 +36,31 @@ public class AutomatedGame
         // call automated player to see what it says to do.. give it dealer and autoPlayer arraylists
         playerMove = AutomatedPlayer.automatedPlayer(dealer, autoPlayer); //will return either "hit" or "stand" based on that stuff
         
+        //tell who had what cards: just a check
+        for (int k = 0; i < autoPlayer.size(); i++)
+        {
+          System.out.println(autoPlayer.get(k) + ", ");
+        }
+        
+        for (int k = 0; i < dealer.size(); i++)
+        {
+          System.out.println(dealer.get(k) + ", ");
+        }
+        
+        
+        
         //if hit, play player another card and add points to playersPoints
         if (playerMove.equals("hit"))
         {
           System.out.println("said hit");
-          autoPlayer.add(Deck.Deck()); //add another card
+          autoPlayer.add(Deck.deck()); //add another card
+          System.out.println("added another card");
           playerCounter += playerCounter + 1; //number of cards added
-          playersPoints += CardValue.cardValue(dealer.get(playerCounter)); //add value of that card to their total points
+          System.out.println("added another to playercounter"); //GETS THIS FAR
+          System.out.println(playerCounter +"= playercounter");
+          double temp = CardValue.cardValue(dealer.get(playerCounter)); //BREAKS HERE
+          System.out.println("temp = " + temp);
+          playersPoints += temp; //add value of that card to their total points
           System.out.println("finished hit");
         }
         
@@ -52,9 +70,18 @@ public class AutomatedGame
           System.out.println("said stand");
           for (int x = 0; x <= autoPlayer.size(); x ++) // go through each card
           {
-            if (CardValue.cardValue(autoPlayer.get(x)) == 1) playerAce = true; //has ace
-            System.out.println("has ace");
+            if (CardValue.cardValue(autoPlayer.get(x)) == 1) //has ace
+            {
+              playerAce = true;
+              System.out.println("has ace");
+            }
+            else
+            {
+              System.out.println("doesn't have ace");
+            }
           }
+          // BREAKS HERE FOR ACE THING. never gets out of that loop ^
+          System.out.println("Outside of has ace loop");
           
           if ((playerAce == true) && ((playersPoints + 10) <= 21)) //if has ace and that ace being 11 is less than or equal to 21
           {
@@ -146,8 +173,8 @@ public class AutomatedGame
   private static void dealCards()
   {
     //dealer plays first
-    dealer.add(Deck.Deck()); //add one card; keep secret
-    dealer.add(Deck.Deck()); //add second card; show
+    dealer.add(Deck.deck()); //add one card; keep secret
+    dealer.add(Deck.deck()); //add second card; show
     System.out.println("The dealer plays his cards and deals in the automated player. Game continues.");
     
     if ((CardValue.cardValue(dealer.get(0)) == 1) || (CardValue.cardValue(dealer.get(1)) == 1)) //if has an ace
@@ -167,7 +194,7 @@ public class AutomatedGame
       
       else // no ace, do it normally
       {
-        dealer.add(Deck.Deck());
+        dealer.add(Deck.deck());
         counter += 1; //number of cards added
         // add to dealersPoints
         while (counter > 0) //imbedding following code instead,, fixed
@@ -181,8 +208,8 @@ public class AutomatedGame
     }
     
     //give player cards
-    autoPlayer.add(Deck.Deck()); //add one card
-    autoPlayer.add(Deck.Deck()); //add second card; show
+    autoPlayer.add(Deck.deck()); //add one card
+    autoPlayer.add(Deck.deck()); //add second card; show
     int temp = CardValue.cardValue(autoPlayer.get(0));
     int temp2 = CardValue.cardValue(autoPlayer.get(1));
     playersPoints = temp + temp2;  //cannot add CardValue.cardvalue etc directly.

@@ -1,7 +1,7 @@
 /* array list of all 52 cards.... shuffle.. picks random card and returns it*/
 
 //ace = 1; if thing = 1 then use 1 or 11- whichever works best in the situation... assume 1 unless needed better
-package Beat-the-Dealer;
+package beatTheDealer;
 
 import java.util.ArrayList;
 public class Deck
@@ -12,10 +12,10 @@ public class Deck
   public static String Deck() //returns one randomly selected card... value
   {
     int cardsRemaining = 52; //minus 1 everytime the class is called to represent one less card in the deck
-    int spades = 1;
-    int clubs = 2;
-    int diamonds = 3;
-    int hearts = 4;
+//    int spades = 1;
+//    int clubs = 2;
+//    int diamonds = 3;
+//    int hearts = 4;
     
     //add the cards to the deck
     deck.add("1-1");

@@ -9,7 +9,7 @@ public class Deck
   
   static ArrayList<String> deck = new ArrayList<String>();
   
-  public static String Deck() //returns one randomly selected card... value
+  public static String deck() //returns one randomly selected card... value
   {
     int cardsRemaining = 52; //minus 1 everytime the class is called to represent one less card in the deck
 //    int spades = 1;

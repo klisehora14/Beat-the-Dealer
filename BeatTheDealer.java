@@ -8,9 +8,7 @@
  * make decimal show two places
  * 
  * make sure 'the player' is in second person not third
- * 
- *  System.out.println("The dealer plays his initial two cards. His visible card is: " + dealer.get(1) + " (first card for testing: " + dealer.get(0)); //second card 
- fix that later
+ *
  */
 package beatTheDealer;
 
@@ -40,7 +38,7 @@ public class BeatTheDealer
   static int wager = 0;
   
   static int counter = 0;
-  static int playerCounter = 0;
+  static int playerCounter = 1; //player starts off with two cards in their hand but array starts at slot 0
   static int choice = 0;
   
   static ArrayList<String> dealer = new ArrayList<String>(); //keep track of the cards CURRENLTY in the dealer's hand. first card is not available to player
@@ -48,7 +46,7 @@ public class BeatTheDealer
   static ArrayList<String> player = new ArrayList<String>(); //player's hand
   static int playersPoints = 0; //total points that round
   
-  public static void beatTheDealer()  //(String[] args)
+  public static void main(String[] args) //beatTheDealer()
   {
     
     while ((playerWon == false) && (dealerWon == false)) //new game
@@ -108,7 +106,7 @@ public class BeatTheDealer
       
       if (choice == 1)
       {
-        //play again... refill deck somehow
+        //play again
         reset();
       }
       else //no more games
@@ -128,7 +126,7 @@ public class BeatTheDealer
       
       if (choice == 1)
       {
-        //play again... refill deck somehow
+        //play again
         reset();
       }
       
@@ -164,30 +162,48 @@ public class BeatTheDealer
         //hit
         if (playersPoints <= LIMIT) //21 or less ... if not should go to the other if statement where player loses
         {
-          player.add(Deck.Deck()); //add another card
+          player.add(Deck.deck()); //add another card
           playerCounter += playerCounter + 1; //number of cards added
-          System.out.println("You are dealt: " + player.get(playerCounter) + "."); //tell them which card
-          playersPoints += CardValue.cardValue(dealer.get(playerCounter)); //add value of that card to their total points
+          System.out.println("playercounter = " + playerCounter); // TO CHECK
+          
+          System.out.println("You are dealt: " + player.get(playerCounter - 1) + "."); //tell them which card
+          playersPoints += CardValue.cardValue(dealer.get(playerCounter - 1)); //add value of that card to their total points
+        }
+        else
+        {
+          dealerWon = true;
         }
       }
       if (decision.toLowerCase().equals("stand")) //stand
       {
         //oh, you have an ace? let's check which value you want :D
-        for (int i = 0; i <= player.size(); i ++) // go through each card
+        for (int i = 0; i < player.size(); i ++) // go through each card
         {
-          if (CardValue.cardValue(player.get(i)) == 1) playerAce = true; //has ace
-          System.out.println("There is an ace."); //bug checker
+          if (CardValue.cardValue(player.get(i)) == 1) 
+          {
+            playerAce = true; //has ace
+            System.out.println("There is an ace."); //bug checker
+          }
+          else System.out.println("There wasn't an ace."); //bug checker
         }
         
-        if ((playerAce == true) && (playersPoints + 10 <= LIMIT)) //if has ace and that ace being 11 is less than or equal to 21
+        if ((playerAce == true) && ((playersPoints + 10) <= LIMIT)) //if has ace and that ace being 11 is less than or equal to 21
         {
           playersPoints = playersPoints + 10; //now that ace is worth 11
           System.out.println("Added 10 because of ace being good."); //bug checker
         }
+        if ((playerAce == true) && ((playersPoints + 10) > LIMIT)) //ace should be worth 1
+        {
+          //bug check
+          System.out.println("");
+        }
+        
+        System.out.println("Outside of ace loop."); // bug checker
         
         System.out.println("You stand. Your total is " + playersPoints + ". The dealer flips his first card. His total is " + dealersPoints + ". ");
       }
     }
+    
     else if (playersPoints == 21) 
     {
       playerWon = true;
@@ -201,8 +217,8 @@ public class BeatTheDealer
   private static void dealCards()
   {
     //dealer plays first
-    dealer.add(Deck.Deck()); //add one card; keep secret
-    dealer.add(Deck.Deck()); //add second card; show
+    dealer.add(Deck.deck()); //add one card; keep secret
+    dealer.add(Deck.deck()); //add second card; show
     System.out.println("The dealer plays his initial two cards. His visible card is: " + dealer.get(1)); //second card 
     
     if ((CardValue.cardValue(dealer.get(0)) == 1) || (CardValue.cardValue(dealer.get(1)) == 1)) //if has an ace
@@ -225,7 +241,7 @@ public class BeatTheDealer
       
       else // no ace, do it normally
       {
-        dealer.add(Deck.Deck());
+        dealer.add(Deck.deck());
         counter += 1; //number of cards added
         // add to dealersPoints
         while (counter > 0) //imbedding following code instead,, fixed
@@ -240,8 +256,8 @@ public class BeatTheDealer
     }
     
     //give player cards
-    player.add(Deck.Deck()); //add one card; keep secret
-    player.add(Deck.Deck()); //add second card; show
+    player.add(Deck.deck()); //add one card; keep secret
+    player.add(Deck.deck()); //add second card; show
     System.out.println("You're dealt your first card: The " + player.get(0) +". Your second card is: The " + player.get(1));
     int temp = CardValue.cardValue(player.get(0));
     int temp2 = CardValue.cardValue(player.get(1));
