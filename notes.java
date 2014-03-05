@@ -498,6 +498,22 @@ java.lang.IndexOutOfBoundsException: Index: 2, Size: 2
      
      // leaving auto alone for now. i might need to just rewrite that it's too confusing to figure out where the errors are.
      
+     There wasn't an ace. 
+There wasn't an ace. 
+Outside of ace loop. 
+You stand. Your total is 13. The dealer flips his first card. His total is 21.  
+playerWon = false; dealerWon = true 
+Inside whoWon method. 
+The dealer wins! Bank balance: 50.0 
+Play again? 1 = yes, 2 = no. 
+ [DrJava Input Box]
+You came to the table with $100 and are leaving with $50.0.  
+You lost $50.0. Better luck next time.Player busts!Inside whoWon method. 
+The dealer wins! Bank balance: 0.0 
+Play again? 1 = yes, 2 = no. 
+
+stand works when dealer is at 21 and player is below 21. i said not to play again. first line correct.... then some errors.
+     
   */
 
 public class notes

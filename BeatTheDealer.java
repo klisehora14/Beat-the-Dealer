@@ -3,11 +3,7 @@
 
 
 /*
- * for aces... check after each time is delt if it;s an ace to the total plus 11 or 1 see which works better and keep that value for it
- * 
  * make decimal show two places
- * 
- * make sure 'the player' is in second person not third
  *
  */
 package beatTheDealer;
@@ -33,6 +29,7 @@ public class BeatTheDealer
   
   static boolean playerAce = false;
   static boolean dealerAce = false; //if they have an ace... 1vs11
+  static boolean gameOver = false;
   
   static double bankBalance = 100.00; //for gambling
   static int wager = 0;
@@ -48,105 +45,37 @@ public class BeatTheDealer
   
   public static void main(String[] args) //beatTheDealer()
   {
-    
-    while ((playerWon == false) && (dealerWon == false)) //new game
+    if (gameOver == false)
     {
-      
-      
-      System.out.println("Let's play Blackjack! Face cards are worth 10. An Ace is either worth 1 or 11; your call."); //start the game
-      
-      //ask the player what his/her bet is
-      betting();
-      
-      //deal out cards to dealer and player
-      dealCards();
-      
-      while ((playerWon == false) || (dealerWon == false))
+      while ((playerWon == false) && (dealerWon == false)) //new game
       {
-        if (playersPoints == 21) playerWon = true;
-        if (dealersPoints == 21) dealerWon = true;
+        System.out.println("Let's play Blackjack! Face cards are worth 10. An Ace is either worth 1 or 11; your call."); //start the game
         
-        playPlayer();
+        //ask the player what his/her bet is
+        betting();
         
-        if ((playersPoints >= LIMIT) || (dealersPoints >= LIMIT))
+        //deal out cards to dealer and player
+        dealCards();
+        
+        while ((playerWon == false) || (dealerWon == false))
         {
+          if (playersPoints == 21) playerWon = true;
+          if (dealersPoints == 21) dealerWon = true;
           
-          if ((dealersPoints > playersPoints) && (dealersPoints <= LIMIT)) //dealer has more points than player and is at most 21
-          {
-            System.out.print("Player busts!");
-            dealerWon = true;
-          }
-          else if ((dealersPoints < playersPoints) && (playersPoints <= LIMIT)) //player has more points than dealer and is at most 21
-          {
-            System.out.print("The player exceeds the dealer by " + (playersPoints - dealersPoints) +".");
-            playerWon = true;
-          }
+          playPlayer();
+          
         }
-          else if ((dealersPoints == playersPoints) && (playersPoints <= LIMIT) && (dealersPoints <= LIMIT)) //if they're equal and under 21
-          {
-            System.out.println("The player and the dealer tie. The cards are discarded and play restarts with new cards. The player keeps the bet.");
-            reset();
-          }
-          
-          else //no one has messed upppp yet
-          {
-            playPlayer();
-          }
-        
       }
     }
     
-//if the player won
-    while ((playerWon == true) && (dealerWon == false))
+    if (gameOver == true)
     {
-      bankBalance =+ (wager*1.5); //house rules = 3:2
-      System.out.println("The player wins! Bank balance: " + bankBalance);
-      System.out.println("Play again? 1 = yes, 2 = no.");
-      int choice = scanner.nextInt();
-      
-      if (choice == 1)
-      {
-        //play again
-        reset();
-      }
-      else //no more games
-      {
-        noMoreGames();
-      }
-    }
-    
-//if dealer won
-    while ((dealerWon == true) && (playerWon == false))
-    {
-      bankBalance = bankBalance - wager; //lost the bet. ouchy
-      
-      System.out.println("The dealer wins! Bank balance: " + bankBalance);
-      System.out.println("Play again? 1 = yes, 2 = no.");
-      choice = scanner.nextInt();
-      
-      if (choice == 1)
-      {
-        //play again
-        reset();
-      }
-      
-      else if (choice == 2)
-      {
-        noMoreGames();
-      }
-    }
-    
-    while ((dealerWon == true) && (playerWon == true)) //tie
-    {
-      //tie.
-      //cards discarded. arrays wiped clean. game restarts.
-      System.out.println("You have reached 21. The dealer flips his card. He is also at 21. The cards are discarded and play restarts with new cards. You keep your bet.");
-      reset(); //clears hands and dealer/playersPoints
+      System.out.println("Game over.");
     }
   }
   
   
-  
+
   private static void playOutPlayer()
   {
     //play out player
@@ -167,11 +96,13 @@ public class BeatTheDealer
           System.out.println("playercounter = " + playerCounter); // TO CHECK
           
           System.out.println("You are dealt: " + player.get(playerCounter - 1) + "."); //tell them which card
-          playersPoints += CardValue.cardValue(dealer.get(playerCounter - 1)); //add value of that card to their total points
+          playersPoints += CardValue.cardValue(dealer.get(dealer.size()-1)); //add value of that card to their total points
+          System.out.println("playersPoints = " + playersPoints); //bug checker
         }
         else
         {
           dealerWon = true;
+          whoWon(playerWon, dealerWon);
         }
       }
       if (decision.toLowerCase().equals("stand")) //stand
@@ -195,23 +126,48 @@ public class BeatTheDealer
         if ((playerAce == true) && ((playersPoints + 10) > LIMIT)) //ace should be worth 1
         {
           //bug check
-          System.out.println("");
+          System.out.println("Ace = 1.");
         }
         
         System.out.println("Outside of ace loop."); // bug checker
         
         System.out.println("You stand. Your total is " + playersPoints + ". The dealer flips his first card. His total is " + dealersPoints + ". ");
+        
+        //check to see who has larger CHECKXDX
+        checkStand(dealersPoints, playersPoints);
+        
+//        System.out.println("playerWon = " + playerWon + "; dealerWon = " + dealerWon); //bug check
+//        whoWon(playerWon, dealerWon); //added new
       }
     }
     
-    else if (playersPoints == 21) 
+    if (playersPoints == 21) 
     {
       playerWon = true;
+      whoWon(playerWon, dealerWon);
     }
-    else
+    
+    else if ((playersPoints >= LIMIT) || (dealersPoints >= LIMIT)) //they're both at, or over, 21
     {
-      playerWon = false;
+      
+      if ((dealersPoints > playersPoints) && (dealersPoints <= LIMIT)) //dealer has more points than player and is at most 21
+      {
+        System.out.print("Player busts!");
+        dealerWon = true;
+        whoWon(playerWon, dealerWon);
+      }
+      else if ((dealersPoints < playersPoints) && (playersPoints <= LIMIT)) //player has more points than dealer and is at most 21
+      {
+        System.out.print("The player exceeds the dealer by " + (playersPoints - dealersPoints) + " points.");
+        playerWon = true;
+        whoWon(playerWon, dealerWon);
+      }
     }
+    else if ((dealersPoints == playersPoints) && (playersPoints == LIMIT)) //if they're equal 21
+    {
+      System.out.println("The player and the dealer tie. The cards are discarded and play restarts with new cards. The player keeps the bet.");
+      reset();
+    }     
   }
   
   private static void dealCards()
@@ -292,26 +248,28 @@ public class BeatTheDealer
     playersPoints = 0;
     dealersPoints = 0;
     
-    for (int i = 0; i <= dealer.size(); i++) //go through however many cards the dealer has
+    for (int i = 0; i < dealer.size(); i++) //go through however many cards the dealer has
     {
       Deck.refillTheDeck(dealer.get(i)); //give the 'copy' of the card so it can be put back into the deck
     }
     
-    for (int i = 0; i <= player.size(); i++) //go through however many cards the player has
+    for (int i = 0; i < player.size(); i++) //go through however many cards the player has
     {
       Deck.refillTheDeck(player.get(i)); //give the 'copy' of the card so it can be put back into the deck
     }
     
     dealer.clear(); //clear all of the cards from the dealer and player's hands
     player.clear();
+    System.out.println("cleared dealer and player"); //bug check
     
     playerWon = false;
     dealerWon = false;
+    System.out.println("playerwon and dealerwon = false"); //bug check
   }
   
   
   
-  private static void noMoreGames() //player doesn't want to play anymore
+  private static void noMoreGames() //game over
   {
     System.out.println("You came to the table with $100 and are leaving with $" + bankBalance+". ");
     if (bankBalance == 100)
@@ -326,6 +284,9 @@ public class BeatTheDealer
     {
       System.out.print("You lost $" + (100 - Math.abs(bankBalance)) + ". Better luck next time."); //absolute value
     }
+    
+    gameOver = true;
+    System.out.println("gameOver == " + gameOver); //bug check
   }
   
   
@@ -345,10 +306,8 @@ public class BeatTheDealer
     //dealer is at 21 and player is not
     else if ((dealersPoints == LIMIT) && (playersPoints < LIMIT))
     {
-      while ((playerWon == false) || (dealerWon == false))
-      {
-        playOutPlayer();
-      }
+      dealerWon = true;
+      whoWon(playerWon, dealerWon);
     }
     
     //dealer is above 21 and so is player
@@ -361,30 +320,143 @@ public class BeatTheDealer
     //dealer is above 21 and player is not
     else if ((dealersPoints > LIMIT) && (playersPoints < LIMIT))
     {
-      while ((playerWon == false) || (dealerWon == false))
-      {
-        playOutPlayer();
-      }
+      playerWon = true;
+      whoWon(playerWon, dealerWon);
     }
     
     //dealer is under 21 and so is player
     else if ((dealersPoints < LIMIT) && (playersPoints < LIMIT)) // PLAY OUT PLAYER
     {
-      while ((playerWon == false) || (dealerWon == false))
-      {
-        playOutPlayer();
-      }
+      playOutPlayer();
     }
     //dealer is under 21 and player is not
     else if ((dealersPoints < LIMIT) && (playersPoints > LIMIT))
     {
       System.out.println("Player busts!");
       dealerWon = true;
+      whoWon(playerWon, dealerWon);
     }  
     
     else System.out.println("Comparison error."); //if it cannot compare either score
   }
+  
+  private static void whoWon(boolean playerWon, boolean dealerWon)
+  {
+    System.out.println("Inside whoWon method."); //bug checker
+    //if the player won
+    if ((playerWon == true) && (dealerWon == false))
+    {
+      bankBalance = bankBalance + (wager*.5); //house rules = 3:20
+      System.out.println("Dealer busts. The player wins! Bank balance: " + bankBalance);
+      System.out.println("Play again? 1 = yes, 2 = no.");
+      int choice = scanner.nextInt();
+      
+      if (choice == 1)
+      {
+        //play again
+        reset();
+      }
+      else //no more games
+      {
+        noMoreGames();
+      }
+    }
+    
+//if dealer won
+    else if ((dealerWon == true) && (playerWon == false))
+    {
+      bankBalance = bankBalance - wager; //lost the bet. ouchy
+      
+      System.out.println("The dealer wins! Bank balance: " + bankBalance);
+      System.out.println("Play again? 1 = yes, 2 = no.");
+      choice = scanner.nextInt();
+      
+      if (choice == 1)
+      {
+        //play again
+        reset();
+      }
+      
+      else
+      {
+        noMoreGames();
+      }
+    }
+    
+    else if ((dealerWon == true) && (playerWon == true)) //tie
+    {
+      //tie.
+      //cards discarded. arrays wiped clean. game restarts.
+      System.out.println("You have reached 21. The dealer flips his card. He is also at 21. The cards are discarded and play restarts with new cards. You keep your bet.");
+      reset(); //clears hands and dealer/playersPoints
+    }
+    
+    else //both false
+    {
+      System.out.println("Both came in false. Error.");
+    }
+  }
+  
+  private static void checkStand(int dealersPoints, int playersPoints)
+  {
+    //if dealer > player && dealer <= 21
+    if ((dealersPoints > playersPoints) && (dealersPoints <= LIMIT))
+    {
+      dealerWon = true;
+    }
+    
+    //if dealer < player && player <= 21
+    if ((dealersPoints < playersPoints) && (playersPoints <= LIMIT))
+    {
+      playerWon = true;
+    }
+    
+    //if dealer > 21 && player > 21
+    if ((dealersPoints > 21) & (playersPoints > 21))
+    {
+      dealerWon = false;
+      playerWon = false;
+    }
+    
+    //if player > 21 && dealer < 21
+    if ((playersPoints > 21) && (dealersPoints < 21))
+    {
+      dealerWon = true;
+    }
+    
+    //if dealer > 21 && player < 21
+    if ((dealersPoints > 21) && (playersPoints < 21))
+    {
+      playerWon = true;
+    }
+    
+    //if player && dealer > 21
+    if ((playersPoints > 21) && (dealersPoints > 21))
+    {
+      playerWon = false;
+      dealerWon = false;
+    }
+    
+    //if player == dealer && < 21
+    if ((playersPoints == dealersPoints) && (playersPoints < 21))
+    {
+      playerWon = true;
+      dealerWon = true;
+    }
+      
+    //if player == dealer == 21
+    if ((playersPoints == dealersPoints) && (playersPoints == 21))
+    {
+      playerWon = true;
+      dealerWon = true;
+    }
+          
+    System.out.println("dealerWon ==" + dealerWon + " playerWon ==" + playerWon +".");
+    whoWon(playerWon, dealerWon);
+                         
+  }
 }
+
 
 
 
