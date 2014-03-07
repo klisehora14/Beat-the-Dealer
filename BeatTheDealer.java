@@ -45,37 +45,14 @@ public class BeatTheDealer
   
   public static void main(String[] args) //beatTheDealer()
   {
-    if (gameOver == false)
+    while ((playerWon == false) && (dealerWon == false)) //new game
     {
-      while ((playerWon == false) && (dealerWon == false)) //new game
-      {
-        System.out.println("Let's play Blackjack! Face cards are worth 10. An Ace is either worth 1 or 11; your call."); //start the game
-        
-        //ask the player what his/her bet is
-        betting();
-        
-        //deal out cards to dealer and player
-        dealCards();
-        
-        while ((playerWon == false) || (dealerWon == false))
-        {
-          if (playersPoints == 21) playerWon = true;
-          if (dealersPoints == 21) dealerWon = true;
-          
-          playPlayer();
-          
-        }
-      }
-    }
-    
-    if (gameOver == true)
-    {
-      System.out.println("Game over.");
+      System.out.println("Let's play Blackjack! Face cards are worth 10. An Ace is either worth 1 or 11; your call."); //start the game
+      playGame();
     }
   }
   
   
-
   private static void playOutPlayer()
   {
     //play out player
@@ -245,8 +222,12 @@ public class BeatTheDealer
   private static void reset() //resets the accounts
   {
     //play again... refill deck somehow
+    System.out.println("inside reset()"); //bug check
     playersPoints = 0;
     dealersPoints = 0;
+    counter = 0;
+    playerCounter = 1;
+    choice = 0;
     
     for (int i = 0; i < dealer.size(); i++) //go through however many cards the dealer has
     {
@@ -265,9 +246,27 @@ public class BeatTheDealer
     playerWon = false;
     dealerWon = false;
     System.out.println("playerwon and dealerwon = false"); //bug check
+    
+    playGame();
   }
   
-  
+  private static void playGame()
+  {
+    //ask the player what his/her bet is
+    betting();
+    
+    //deal out cards to dealer and player
+    dealCards();
+    
+    while ((playerWon == false) || (dealerWon == false))
+    {
+      if (playersPoints == 21) playerWon = true;
+      if (dealersPoints == 21) dealerWon = true;
+      
+      playPlayer();
+      
+    }
+  }
   
   private static void noMoreGames() //game over
   {
@@ -284,9 +283,17 @@ public class BeatTheDealer
     {
       System.out.print("You lost $" + (100 - Math.abs(bankBalance)) + ". Better luck next time."); //absolute value
     }
-    
-    gameOver = true;
-    System.out.println("gameOver == " + gameOver); //bug check
+
+
+    try 
+    {
+      Thread.sleep(10000); //pauses screen before ending program
+    } 
+    catch(InterruptedException ex) 
+    {
+      Thread.currentThread().interrupt();
+    }
+    System.exit(0); //ends the program
   }
   
   
