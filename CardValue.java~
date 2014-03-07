@@ -3,7 +3,7 @@
 //at a time. checks the (first letter, maybe? if that's all that
 //decides if ace, eight, nine, king, etc and last letter)
 // returns the numberic value of that card
-package Beat-the-Dealer;
+package beatTheDealer;
 
 public class CardValue
 {

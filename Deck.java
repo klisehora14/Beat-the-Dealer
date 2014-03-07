@@ -1,6 +1,9 @@
-/* array list of all 52 cards.... shuffle.. picks random card and returns it*/
-
-//ace = 1; if thing = 1 then use 1 or 11- whichever works best in the situation... assume 1 unless needed better
+/*
+ The deck class has 52 specific cards. Everytime that the class is called (to add a card to a hand somewhere) the card is completely removed from the deck
+ so that it cannot be taken more than once in one game. The card that is given is picked at random.
+ 
+ The class can also put cards into the deck.
+ */
 package beatTheDealer;
 
 import java.util.ArrayList;
@@ -9,9 +12,9 @@ public class Deck
   
   static ArrayList<String> deck = new ArrayList<String>();
   
-  public static String deck() //returns one randomly selected card... value
+  public static String deck() //returns one randomly selected card
   {
-    int cardsRemaining = 52; //minus 1 everytime the class is called to represent one less card in the deck
+    int cardsRemaining = 52;
 //    int spades = 1;
 //    int clubs = 2;
 //    int diamonds = 3;
@@ -75,10 +78,10 @@ public class Deck
     
     deck.remove(chosenCard); //remove that card from the arraylist
     
-    return getValue(chosenCard) + " of " + getSuit(chosenCard); //returns the words.. like "Ace of Spades"
+    return getValue(chosenCard) + " of " + getSuit(chosenCard); //i.e. "Ace of Spades"
   }
   
-  private static String getSuit(String card) //is given a selection from arraylist deck... gets the suit based on the first number in the string
+  private static String getSuit(String card) //returns the suit
   {
     if (card.substring(0,1).equals("1")) //card of spades
       return "Spades";
@@ -91,7 +94,7 @@ public class Deck
     else return "getSuit error";
   }
   
-  private static String getValue(String card) //is given a selection from arraylist deck... gets the value of the card based on the last number
+  private static String getValue(String card) //returns the specific type of card
   {
     if (card.substring(2).equals("1")) //ace
       return "Ace";
@@ -123,19 +126,18 @@ public class Deck
     else return "getValue error";
   }
   
-  public static void refillTheDeck(String str) //takes input from reset() in beatTheDealer.BeatTheDealer, turns that into a card, and PUTS IT BACK into the array list which it was removed from
+  public static void refillTheDeck(String str) //takes a string (i.e. Ace of Spades), figures out the numbers for that card, and puts it back into the deck
   {
-    String newCard = cardSuit(str) + "-" + cardValue(str); //returns the suit, 1,2,3, or 4, the dash, and the value, back into the deck. so it's full again :D
-    System.out.println("Str is: " + str + " The card being added to the deck it: " + newCard); //bug check to see if adding the correct card
+    String newCard = cardSuit(str) + "-" + cardValue(str); //returns the suit, 1,2,3, or 4, the dash, and the value, back into the deck (format)
     deck.add(newCard);
   }
   
   private static String cardSuit(String str) //figures out what suit the card is, returns it to refillTheDeck()
   {
-    //cluBs, diamonDs, spadEs, hearTs (check for the second to last letter in the string to figure out which suit it is :)
+    //cluBs, diamonDs, spadEs, hearTs (check for the second to last letter in the string to figure out which suit it is
     int l = str.length(); //simplifies substring
     
-    if (str.substring(l-2,l-1).equals("b")) //if it's clubs because the second to last letter in the string is a b...
+    if (str.substring(l-2,l-1).equals("b")) //clubs
       return "2"; //because clubs are a 2 in the deck
     if (str.substring(l-2, l-1).equals("d")) //diamonds
       return "3";
@@ -149,9 +151,9 @@ public class Deck
   
   private static String cardValue(String str) //figure out what number the card is, and returns it to refillTheDeck()
   { 
-    String output = String.valueOf(CardValue.cardValue(str)); //already have a class that finds the numberic value.. use that but convert it to a string
+    String output = String.valueOf(CardValue.cardValue(str)); //find the value
     
-    if (output.equals("10")) //if it's a face card check the actual word to see which face card because the deck names them differently
+    if (output.equals("10")) //if it's a face card check the word to see which specific one
     {
       if (str.substring(0,2).equals("10"))
         output = "10";
