@@ -1,12 +1,10 @@
+//Kapri Lisehora
+// plays like a smart player but does not count cards
+
 package beatTheDealer;
 import java.util.ArrayList;
-// plays like a smart player BUT DOESNT COUNT CARDS... maybe implement that later or have another AI that DOES count cards.
-// play round of like 10 games? when the person is betting on the player vs computer
 
-/*
- * check to see if ace.. then hardHand or softHand
- * return 'hit' or 'stand'
- */
+
 public class AutomatedPlayer
 {
   static boolean hasAce = false; //whether the player has at least one ace or not
@@ -54,7 +52,7 @@ public class AutomatedPlayer
       }
       
       if ((playersPoints >= 3) && (playersPoints <= 11)) //3-11
-      {System.out.println("returning hit 1");
+      {
         return "hit";
       }
       
@@ -62,14 +60,11 @@ public class AutomatedPlayer
       {
         if ((dealersPoints >= 2) && (dealersPoints <= 6))
         {
-          System.out.println("returning stand; dealer>=2; <=6");
           return "stand";
         }
-        System.out.println("returning hit; greater than 7");
         return "hit"; //greater than 7
       }
       
-      System.out.println("returning stand");
       return "stand"; //greater or equal to 17
     }
     

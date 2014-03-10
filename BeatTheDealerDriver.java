@@ -1,8 +1,15 @@
+/* Kapri Lisehora
+ * beatTheDealer driver class
+ * 
+ * This class asks the player whether they want to be the player and play against the dealer or whether they want to place a bet on either an automated player or a dealer
+ * in a set of rounds. 
+ */
+
+// runs BeatTheDealer which is the person playing the Dealer and betting as they would in a casino
+//run AutomatedPlayer which is the person betting on either the AutomatedPlayer or the Dealer for who comes out ontop after 10 rounds
+
 package beatTheDealer;
 import java.util.Scanner;
-// runs BeatTheDealer which is the person playing the Dealer and betting as they would in a casino
-
-//run AutomatedPlayer which is the person betting on either the AutomatedPlayer or the Dealer for who comes out ontop after 10 rounds
 
 public class BeatTheDealerDriver
 {
@@ -23,11 +30,10 @@ public class BeatTheDealerDriver
       BeatTheDealer.beatTheDealer();
     }
     
-    else if (gameType == 2)
+    if (gameType == 2)
     {
       betting();
-      AutomatedGame.automatedGame(gameNumber);
-      String str = AutomatedGame.automatedGame(gameNumber);
+      String str = AutoGame.autoGame(gameNumber);
       resolveAccounts(str); //figures out if person won and alters bank account as such
     }
     
@@ -38,12 +44,8 @@ public class BeatTheDealerDriver
     }
   }
   
-  private static void resolveAccounts(String str)
-  {
-    //who won, the automatedplayer or the dealer?
-    //if dealer, bankaccount - bet amount
-    //otherwise, bankaccount += * 1.5
-    
+  private static void resolveAccounts(String str) //checks to see if the guessed winner actually won. changes bank depending 
+  { 
     if (assumedWinner.equals(str))
     {
       bankBalance = bankBalance*1.5;
@@ -52,7 +54,8 @@ public class BeatTheDealerDriver
     
     else if (str.equals("tie"))
     {
-     //nothing happens
+      bankBalance = bankBalance - betAmount;
+      System.out.println("The AutoPlayer and the dealer tied. You lost. Your bank balance is now: $" + bankBalance + ".");
     }
     
     else //lost

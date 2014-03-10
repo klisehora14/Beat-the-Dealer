@@ -7,7 +7,7 @@ public class AutomatedGame
   static ArrayList<String> dealer = new ArrayList<String>(); //keep track of the cards CURRENLTY in the dealer's hand. first card is not available to player
   static ArrayList<String> autoPlayer = new ArrayList<String>();
   
-  static int gameNumber = 1; //what game of however many they're on 
+  static int gameNumber; //what game of however many they're on 
   static boolean dealerAce = false;
   static boolean playerAce = false;
   static int dealersPoints = 0;
@@ -23,11 +23,13 @@ public class AutomatedGame
   {
     dealersGame = 0;
     playersGame = 0;
+    gameNumber = 1; //first game
       
     while (gameNumber <= numberOfGames) //still going through as many as the better wanted
     { 
       for (int i = 1; i <= numberOfGames; i++) //what to do for each game
       {
+        System.out.println("game number= " +gameNumber + " dealersgame = " + dealersGame + ". playersgame = " + playersGame);
         //play dealer cards
         //dealer does his thing
         // play player cards
@@ -37,12 +39,12 @@ public class AutomatedGame
         playerMove = AutomatedPlayer.automatedPlayer(dealer, autoPlayer); //will return either "hit" or "stand" based on that stuff
         
         //tell who had what cards: just a check
-        for (int k = 0; i < autoPlayer.size(); i++)
+        for (int k = 0; k < autoPlayer.size(); k++)
         {
           System.out.println(autoPlayer.get(k) + ", ");
         }
         
-        for (int k = 0; i < dealer.size(); i++)
+        for (int k = 0; k < dealer.size(); k++)
         {
           System.out.println(dealer.get(k) + ", ");
         }
@@ -68,7 +70,7 @@ public class AutomatedGame
         if (playerMove.equals("stand"))
         {
           System.out.println("said stand");
-          for (int x = 0; x <= autoPlayer.size(); x ++) // go through each card
+          for (int x = 0; x < autoPlayer.size(); x ++) // go through each card
           {
             if (CardValue.cardValue(autoPlayer.get(x)) == 1) //has ace
             {
@@ -80,7 +82,7 @@ public class AutomatedGame
               System.out.println("doesn't have ace");
             }
           }
-          // BREAKS HERE FOR ACE THING. never gets out of that loop ^
+          
           System.out.println("Outside of has ace loop");
           
           if ((playerAce == true) && ((playersPoints + 10) <= 21)) //if has ace and that ace being 11 is less than or equal to 21

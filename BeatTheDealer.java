@@ -32,7 +32,7 @@ public class BeatTheDealer
   static boolean dealerAce = false; //if they have an ace
   static boolean gameOver = false;
   
-  static double bankBalance = 100.00; //for gambling
+  static double bankBalance = 10000; //for gambling
   static double wager = 0;
   
   static int counter = 0;
@@ -44,7 +44,7 @@ public class BeatTheDealer
   static ArrayList<String> player = new ArrayList<String>(); //player's hand
   static int playersPoints = 0; //total points that round
   
-  public static void main(String[] args) //beatTheDealer()
+  public static void beatTheDealer()
   {
     while ((playerWon == false) && (dealerWon == false)) //new game
     {
@@ -195,7 +195,7 @@ public class BeatTheDealer
         if (playersPoints <= LIMIT)
         {
           player.add(Deck.deck()); //add another card
-          playerCounter += playerCounter + 1; //number of cards added
+          playerCounter += 1; //number of cards added
           System.out.println("You are dealt: " + player.get(playerCounter - 1) + ".");
           playersPoints += CardValue.cardValue(dealer.get(dealer.size()-1));
         }
@@ -345,7 +345,15 @@ public class BeatTheDealer
       if (choice == 1)
       {
         //play again
-        reset();
+        if (bankBalance < 5)
+        {
+          System.out.println("Oops! You need at least $5 to play because that is the minimum bet.");
+          noMoreGames();
+        }
+        else
+        {
+          reset();
+        }
       }
       
       else
