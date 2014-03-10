@@ -21,13 +21,11 @@ public class AutomatedPlayer
     
     if (hasAce == true)
     {
-      System.out.println("returning hardHand");
       return hardHand(dealersCards, playersCards); //give hardHand both arraylists and it will return a string of either hit or stand
     }
     
     else //no ace
     {
-      System.out.println("returning softHand");
       return softHand(playersCards); 
     }
     

@@ -48,7 +48,7 @@ public class BeatTheDealerDriver
   { 
     if (assumedWinner.equals(str))
     {
-      bankBalance = bankBalance*1.5;
+      bankBalance = betAmount*1.5;
       System.out.println("You win! Your bank balance is now: $" + bankBalance + ".");
     }
     
